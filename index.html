@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="ky">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#f8f3e9">
+<title>Ишен & Бактыгул — Тойго чакыруу</title>
+<style>
+:root {
+--cream:#f8f3e9;
+--paper:#fffdf8;
+--gold:#b58b43;
+--dark:#80612d;
+--ink:#51452f;
+--line:#d9bd82;
+}
+* {box-sizing:border-box}
+html {scroll-behavior:smooth}
+body {
+margin:0;
+background:var(--cream);
+color:var(--ink);
+font-family:Georgia,"Times New Roman",serif;
+}
+.hidden {display:none!important}
+#intro {
+min-height:100vh;
+min-height:100svh;
+display:grid;
+place-items:center;
+padding:22px;
+background:radial-gradient(circle,#fffdf8 0,#f5eddf 70%,#eee2cd 100%);
+overflow:hidden;
+}
+.intro-inner {
+text-align:center;
+width:min(100%,430px);
+}
+.intro-caption {
+color:var(--dark);
+letter-spacing:.18em;
+font-size:12px;
+margin-bottom:28px;
+}
+.envelope-button {
+width:min(86vw,360px);
+aspect-ratio:1.42/1;
+border:0;
+padding:0;
+background:none;
+cursor:pointer;
+perspective:1100px;
+filter:drop-shadow(0 18px 22px #5b411d2e);
+}
+.envelope {
+height:100%;
+width:100%;
+position:relative;
+transform-style:preserve-3d;
+}
+.env-back {
+position:absolute;
+inset:0;
+background:linear-gradient(145deg,#fffefa,#e9dfcf);
+border:1px solid #d7c7a9;
+border-radius:7px;
+}
+.letter-preview {
+position:absolute;
+left:9%;
+width:82%;
+height:88%;
+bottom:4%;
+display:grid;
+place-items:center;
+background:#fffdf8;
+border:1px solid #e2d3b6;
+color:var(--dark);
+font-style:italic;
+font-size:clamp(18px,5vw,26px);
+z-index:2;
+transition:transform 1.2s cubic-bezier(.2,.75,.25,1);
+}
+.env-front {
+position:absolute;
+inset:0;
+background:linear-gradient(145deg,#f5eee2,#e6d8c2);
+clip-path:polygon(0 0,50% 56%,100% 0,100% 100%,0 100%);
+border-radius:7px;
+z-index:4;
+}
+.env-flap {
+position:absolute;
+inset:0;
+background:linear-gradient(160deg,#fffdf7,#e8dcc8);
+clip-path:polygon(0 0,100% 0,50% 58%);
+transform-origin:top center;
+transition:transform 1s ease;
+z-index:5;
+backface-visibility:hidden;
+}
+.seal {
+position:absolute;
+z-index:6;
+left:50%;
+top:53%;
+transform:translate(-50%,-50%);
+width:54px;
+height:54px;
+border-radius:50%;
+display:grid;
+place-items:center;
+color:#fff8e9;
+font-size:22px;
+background:radial-gradient(circle at 35% 30%,#e2c37d,#a77c35 75%);
+border:2px solid #f4e4bd;
+transition:opacity .3s;
+}
+.envelope-button.opened .env-flap {
+transform:rotateX(180deg);
+z-index:1;
+}
+.envelope-button.opened .letter-preview {
+transform:translateY(-78%);
+transition-delay:.4s;
+}
+.envelope-button.opened .seal {opacity:0}
+.tap-hint {
+color:#8d744a;
+margin-top:24px;
+font-size:14px;
+}
+.ornament {
+color:var(--gold);
+letter-spacing:.4em;
+margin-top:18px;
+}
+#invitation {animation:fadein 1s ease}
+@keyframes fadein {
+from {opacity:0;transform:translateY(15px)}
+to {opacity:1;transform:none}
+}
+.hero {
+min-height:85vh;
+min-height:85svh;
+display:grid;
+place-items:center;
+padding:55px 25px;
+text-align:center;
+position:relative;
+}
+.hero:before {
+content:"";
+position:absolute;
+inset:15px;
+border:1px solid var(--line);
+pointer-events:none;
+}
+.hero-content {
+max-width:650px;
+position:relative;
+}
+.eyebrow {
+color:var(--dark);
+letter-spacing:.2em;
+font-size:12px;
+}
+h1 {
+color:var(--dark);
+font-size:clamp(42px,10vw,74px);
+font-weight:400;
+font-style:italic;
+line-height:1.1;
+margin:24px 0;
+}
+.rule {
+width:110px;
+height:1px;
+background:var(--line);
+margin:22px auto;
+}
+.intro-text {
+max-width:520px;
+line-height:1.9;
+font-size:17px;
+margin:auto;
+}
+.date-large {
+color:var(--dark);
+font-size:clamp(28px,7vw,42px);
+margin-top:28px;
+}
+.section {
+padding:48px 18px;
+display:flex;
+justify-content:center;
+}
+.panel {
+width:min(100%,650px);
+padding:clamp(24px,6vw,45px);
+background:#fffdf8e8;
+border:1px solid var(--line);
+outline:1px solid #b58b4338;
+outline-offset:5px;
+text-align:center;
+box-shadow:0 16px 40px #5b411d0f;
+}
+h2 {
+color:var(--dark);
+font-weight:400;
+font-style:italic;
+font-size:30px;
+margin:0 0 25px;
+}.couple-photo {
+display:block;
+width:min(100%,430px);
+height:auto;
+margin:0 auto;
+border:5px solid white;
+outline:1px solid var(--line);
+box-shadow:0 12px 30px #5b411d22;
+}
+.details {
+display:grid;
+gap:19px;
+text-align:left;
+max-width:440px;
+margin:auto;
+}
+.detail {
+display:grid;
+grid-template-columns:34px 1fr;
+gap:12px;
+align-items:start;
+line-height:1.65;
+}
+.icon {
+color:var(--gold);
+font-size:23px;
+text-align:center;
+}
+.detail strong {
+display:block;
+color:var(--dark);
+}
+.map-button {
+display:inline-block;
+margin-top:27px;
+padding:13px 23px;
+border:1px solid var(--gold);
+color:var(--dark);
+text-decoration:none;
+background:white;
+}
+.countdown {
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:8px;
+}
+.count-box {
+border:1px solid var(--line);
+padding:14px 3px;
+background:white;
+}
+.count-number {
+display:block;
+color:var(--dark);
+font-size:clamp(22px,6vw,34px);
+}
+.count-label {
+font-size:10px;
+letter-spacing:.07em;
+color:#8d744a;
+}
+.wish {
+line-height:1.95;
+font-size:17px;
+}
+.signature {
+color:var(--dark);
+font-size:24px;
+font-style:italic;
+margin-top:25px;
+}
+footer {
+text-align:center;
+padding:28px 15px 55px;
+color:#8d744a;
+font-size:13px;
+}
+.sound-toggle {
+position:fixed;
+right:16px;
+bottom:16px;
+z-index:10;
+width:48px;
+height:48px;
+border:1px solid var(--line);
+border-radius:50%;
+background:#fffdf0;
+color:var(--dark);
+font-size:20px;
+}
+@media(max-width:380px) {
+.countdown {gap:4px}
+.count-box {padding:11px 1px}
+.count-label {font-size:9px}
+}
+</style>
+</head>
+<body>
+
+<section id="intro">
+<div class="intro-inner">
+<div class="intro-caption">СИЗГЕ ӨЗГӨЧӨ ЧАКЫРУУ</div>
+
+<button class="envelope-button" id="openEnvelope">
+<div class="envelope">
+<div class="env-back"></div>
+<div class="letter-preview">
+Ишен &amp; Бактыгул
+</div>
+<div class="env-front"></div>
+<div class="env-flap"></div>
+<div class="seal">❋</div>
+</div>
+</button>
+
+<div class="tap-hint">
+Чакыруу катын ачуу үчүн конвертти басыңыз
+</div>
+<div class="ornament">✧ ❋ ✧</div>
+</div>
+</section>
+
+<main id="invitation" class="hidden">
+
+<header class="hero">
+<div class="hero-content">
+<div class="eyebrow">ТОЙГО ЧАКЫРУУ</div>
+
+<h1>
+Ишен <span style="font-size:.55em">&amp;</span> Бактыгул
+</h1>
+
+<div class="rule"></div>
+
+<p class="intro-text">
+Урматтуу коноктор! Сиздерди биздин кубанычтуу күнүбүзгө арналган той дасторконубуздун сыйлуу коногу болууга чакырабыз!
+</p>
+
+<div class="date-large">16 · 01 · 2027</div>
+<div class="eyebrow">СААТ 15:00</div>
+</div>
+</header><section class="section">
+<div class="panel">
+<h2>Ишен &amp; Бактыгул</h2>
+
+<img
+class="couple-photo"
+src="jup_foto.jpg"
+alt="Ишен жана Бактыгул">
+
+<p class="wish">
+Бул кубанычтуу күндү сиздер менен бирге белгилөөгө чакырабыз!
+</p>
+</div>
+</section>
+
+<section class="section">
+<div class="panel">
+<h2>Той тууралуу маалымат</h2>
+
+<div class="details">
+
+<div class="detail">
+<div class="icon">▦</div>
+<div>
+<strong>Той күнү</strong>
+16-январь, 2027-жыл
+</div>
+</div>
+
+<div class="detail">
+<div class="icon">◷</div>
+<div>
+<strong>Башталышы</strong>
+15:00
+</div>
+</div>
+
+<div class="detail">
+<div class="icon">⌖</div>
+<div>
+<strong>Өтүүчү жери</strong>
+Каракол шаары, «Алтын Кумара» рестораны
+</div>
+</div>
+
+</div>
+
+<a class="map-button"
+href="https://www.google.com/maps/search/?api=1&query=Алтын+Кумара+ресторан+Каракол"
+target="_blank">
+Картадан көрүү ↗
+</a>
+
+</div>
+</section>
+
+<section class="section">
+<div class="panel">
+<h2>Тойго чейин калды</h2>
+
+<div class="countdown">
+
+<div class="count-box">
+<span class="count-number" id="days">0</span>
+<span class="count-label">КҮН</span>
+</div>
+
+<div class="count-box">
+<span class="count-number" id="hours">00</span>
+<span class="count-label">СААТ</span>
+</div>
+
+<div class="count-box">
+<span class="count-number" id="minutes">00</span>
+<span class="count-label">МҮНӨТ</span>
+</div>
+
+<div class="count-box">
+<span class="count-number" id="seconds">00</span>
+<span class="count-label">СЕКУНД</span>
+</div>
+
+</div>
+</div>
+</section><section class="section">
+<div class="panel">
+<h2>Ак тилектер</h2>
+<div class="wish">
+Ар бир үйдүн бактысы — ынтымакта, берекеси — биримдикте.<br><br>
+Өмүрүбүздүн ар бир күнү жакшылык менен коштолуп, үйүбүздөн күлкү, жүрөгүбүздөн мээрим кетпесин.<br><br>
+Балдарыбыздын бактысын, неберелерибиздин күлкүсүн көрүп, ар дайым жакындарыбыздын арасында аман-эсен жүрөлү.<br><br>
+Кудайым ар бир үй-бүлөгө тынчтык, ынтымак, ден соолук жана мол ырыскы насип кылсын.
+</div>
+<div class="rule"></div>
+<div class="signature">Ак батабыз кабыл болсун!</div>
+</div>
+</section>
+
+<section class="section">
+<div class="panel">
+<h2>Той ээлери</h2>
+<p class="wish">Балдары жана неберелери</p>
+<div class="rule"></div>
+<p class="wish">Тойго келип, сый-урмат көрүп кетиңиздер!</p>
+<div class="ornament">✧ ❋ ✧</div>
+</div>
+</section>
+
+<footer>Сиздерди чыдамсыздык менен күтөбүз ❤️</footer>
+</main>
+
+<audio id="music" src="music.mp3" loop preload="auto"></audio>
+<audio id="paper" src="paper.mp3" preload="auto"></audio>
+
+<button id="musicButton" class="sound-toggle hidden" aria-label="Музыканы күйгүзүү же өчүрүү">♫</button>
+
+<script>
+const openButton = document.getElementById("openEnvelope");
+const intro = document.getElementById("intro");
+const invitation = document.getElementById("invitation");
+const music = document.getElementById("music");
+const paper = document.getElementById("paper");
+const musicButton = document.getElementById("musicButton");
+
+let opened = false;
+
+openButton.addEventListener("click", () => {
+  if (opened) return;
+  opened = true;
+
+  openButton.classList.add("opened");
+
+  paper.currentTime = 0;
+  paper.play().catch(() => {});
+
+  music.volume = 0.4;
+  music.play().catch(() => {});
+
+  setTimeout(() => {
+    intro.classList.add("hidden");
+    invitation.classList.remove("hidden");
+    musicButton.classList.remove("hidden");
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+  }, 1900);
+});
+
+musicButton.addEventListener("click", async () => {
+  if (music.paused) {
+    try {
+      await music.play();
+      musicButton.textContent = "♫";
+    } catch (e) {
+      musicButton.textContent = "×";
+    }
+  } else {
+    music.pause();
+    musicButton.textContent = "×";
+  }
+});
+
+const weddingTime = new Date("2027-01-16T15:00:00+06:00").getTime();
+
+function updateCountdown() {
+  let remaining = weddingTime - Date.now();
+
+  if (remaining <= 0) {
+    ["days", "hours", "minutes", "seconds"].forEach(id => {
+      document.getElementById(id).textContent = "00";
+    });
+    return;
+  }
+
+  const day = Math.floor(remaining / 86400000);
+  remaining %= 86400000;
+
+  const hour = Math.floor(remaining / 3600000);
+  remaining %= 3600000;
+
+  const minute = Math.floor(remaining / 60000);
+  const second = Math.floor((remaining % 60000) / 1000);
+
+  document.getElementById("days").textContent = day;
+  document.getElementById("hours").textContent = String(hour).padStart(2, "0");
+  document.getElementById("minutes").textContent = String(minute).padStart(2, "0");
+  document.getElementById("seconds").textContent = String(second).padStart(2, "0");
+}
+</script>
+
+</body>
+</html>
